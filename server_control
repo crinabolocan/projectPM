@@ -1,0 +1,102 @@
+#include <Servo.h>
+
+// Create a servo object
+Servo myServo;
+
+// constants won't change. They're used here to set pin numbers:
+const int buttonPin = 2;  // the number of the pushbutton pin
+const int servoPin = 4;   // Connect the servo signal wire to pin 9
+const int ledPin = 10;    // the number of the LED pin
+
+int trigPin = 11;  // Trigger
+int echoPin = 12;  // Echo
+long duration, cm;
+
+// variables will change:
+int buttonState = 0;  // variable for reading the pushbutton status
+// Variable to track the servo position
+int servoPos = 0;
+
+bool alreadyVisited = false;
+
+unsigned long previousMillis = 0;
+const long interval = 2000;  // Interval at which to run (milliseconds)
+
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);
+  pinMode(trigPin, OUTPUT);
+
+  pinMode(echoPin, INPUT);
+  myServo.attach(servoPin);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Get the current time
+  unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= interval) {
+    // Save the last time you waited
+    previousMillis = currentMillis;
+    digitalWrite(trigPin, LOW);
+
+    delayMicroseconds(5);
+
+    digitalWrite(trigPin, HIGH);
+
+    delayMicroseconds(10);
+
+    digitalWrite(trigPin, LOW);
+
+    // Read the signal from the sensor: a HIGH pulse whose
+
+    // duration is the time (in microseconds) from the sending
+
+    // of the ping to the reception of its echo off of an object.
+
+    pinMode(echoPin, INPUT);
+
+    duration = pulseIn(echoPin, HIGH);
+
+    // Convert the time into a distance
+
+    cm = (duration / 2) / 29.1;  // Divide by 29.1 or multiply by 0.0343
+
+    Serial.print(cm);
+
+    Serial.println("cm");
+    Serial.print("Should trigger: " + cm < 40);
+
+    Serial.println();
+
+    // delay(250);
+    // read the state of the pushbutton value:
+    buttonState = digitalRead(buttonPin);
+  }
+
+
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (buttonState == HIGH && cm < 40) {
+    // turn LED on:
+    digitalWrite(ledPin, HIGH);
+
+    // Rotate the servo to 90 degrees
+    servoPos++;
+
+    if (servoPos >= 90) servoPos = 90;
+
+    myServo.write(servoPos);
+  } else {
+
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
+    servoPos = 0;
+    myServo.write(servoPos);
+  }
+}
