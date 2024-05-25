@@ -1,7 +1,7 @@
 #include <ESP8266WebServer.h>
 
-const char* ssid = "BCM";
-const char* password = "13052002crinaaa";
+const char* ssid = "...";
+const char* password = "...";
 
 //create a new object ESP8266WebServer
 //the parameter "80" represent the port that the board listens to.
