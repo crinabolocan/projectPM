@@ -1,30 +1,10 @@
-/*
-   Credits: www.plusivo.com
-
-   Lesson 16: Control an LED from web
-  
-   The code below is created for the lesson "Control an LED from web"
-   where you will connect to a WiFi network and host a simple website.
-   
-   The code consists of 3, main, custom functions used to connect to the
-   WiFi ( "connectToWiFi()"), to setup the server ("setupServer()"),
-   and a function that sends a message to the browser ("htmlIndex()"); 
-
-   Also we defined a new function to control the led.
-   
-*/
 #include <ESP8266WebServer.h>
 
-const char* ssid = "...";
-const char* password = "...";
+const char* ssid = "BCM";
+const char* password = "13052002crinaaa";
 
 //create a new object ESP8266WebServer
 //the parameter "80" represent the port that the board listens to.
-//if you use a port different than 80, you need to be sure you access it  
-//correctly from the browser.
-//For example:
-//if the ip is 100.32.12.39 and the port is 2093, you have to access 
-//the following address: "100.32.12.39:2093"
 ESP8266WebServer server(80);
 
 //the int variable "LED" stores the pin used by the LED
@@ -36,7 +16,6 @@ String storage = "";
 //user
 
 //below you can find the html page
-//more details about the html page can be found in the guide
 String page =
 R"(
 <html lang='en'>
