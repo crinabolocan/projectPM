@@ -3,7 +3,7 @@
 // Create a servo object
 Servo myServo;
 
-// constants won't change. They're used here to set pin numbers:
+//set pin numbers:
 const int buttonPin = 2;  // the number of the pushbutton pin
 const int servoPin = 4;   // Connect the servo signal wire to pin 9
 const int ledPin = 10;    // the number of the LED pin
@@ -65,7 +65,7 @@ void loop() {
 
     // Convert the time into a distance
 
-    cm = (duration / 2) / 29.1;  // Divide by 29.1 or multiply by 0.0343
+    cm = (duration / 2) / 29.1;  // Divide by 29.1
 
     Serial.print(cm);
 
